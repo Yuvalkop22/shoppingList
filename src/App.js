@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import ExpenseItems from './components/ExpenseItems';
+import './styles'
 
 function App() {
-  return (
+  const expense = [
+    {title:'Tomato', amount:1.3,date:new Date(2020,2,28)},
+    {title:'Cucumber', amount:1.4,date:new Date(2020,2,28)},
+    {title:'Onion', amount:1.2,date:new Date(2020,2,28)},
+    {title:'Lettuce', amount:3,date:new Date(2020,2,28)},
+    {title:'Pepper', amount:1.6,date:new Date(2020,2,28)},
+    {title:'Carrot', amount:1.1,date:new Date(2020,2,28)}
+  ]
+  
+  return(
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <table>
+  <tr>
+    <th>Product</th>
+    <th>Price</th>
+  </tr>
+      {expense.map((exp)=>
+        <ExpenseItems title = {exp.title} amount = {"$"+exp.amount}></ExpenseItems>
+      )}
+      </table>
     </div>
-  );
+  )
 }
 
 export default App;
