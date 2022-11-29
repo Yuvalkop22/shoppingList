@@ -44,6 +44,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Shopping List by Gal and Roy </h1>
       {expense.map((exp) => (
         <ExpenseItem
           title={exp.title}
