@@ -1,6 +1,8 @@
-import ExpenseItem from "./components/ExpenseItem";
-import "./App.css";
 import "./components/ExpenseItem.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+//pages & components
+import Home from "./pages/Home";
 
 function App() {
   const expense = [
@@ -44,14 +46,14 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Shopping List by Gal and Roy </h1>
-      {expense.map((exp) => (
-        <ExpenseItem
-          title={exp.title}
-          amount={"$" + exp.amount}
-          imagePath={exp.imagePath}
-        ></ExpenseItem>
-      ))}
+      <BrowserRouter>
+        <h1>Shop by Roy, Gal & Yuval</h1>
+        <div className="pages">
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }

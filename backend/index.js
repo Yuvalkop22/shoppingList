@@ -1,23 +1,35 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
+const productRoutes = require("./routes/products");
+
+//express app
 const app = express();
 
-const url = `mongodb+srv://shop123:shop123@shop.5fcgkig.mongodb.net/?retryWrites=true&w=majority`;
+app.use(express.json());
 
-const connectionParams = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
 
+// routes
+app.use("/api/products/", productRoutes);
+
+const MONGO_URI =
+  "mongodb+srv://shop1234:shop1234@shop.iknreux.mongodb.net/?retryWrites=true&w=majority";
+//connect to db
 mongoose
-  .connect(url, connectionParams)
+  .connect(MONGO_URI)
   .then(() => {
-    console.log("Connected to the database ");
+    //listen for requests
+    app.listen(process.env.PORT, () => {
+      console.log("connected to db & listening on port 4000");
+    });
   })
-  .catch((err) => {
-    console.error(`Error connecting to the database. n${err}`);
+  .catch((error) => {
+    console.log(error);
   });
 
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
-});
+process.env;
