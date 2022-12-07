@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 app.use((req, res, next) => {
-  console.log(req.path, req.method);
+  //console.log(req.path, req.method);
   next();
 });
 
@@ -20,6 +20,7 @@ app.use("/api/products/", productRoutes);
 const MONGO_URI =
   "mongodb+srv://shop1234:shop1234@shop.iknreux.mongodb.net/?retryWrites=true&w=majority";
 //connect to db
+mongoose.set('strictQuery', true);
 mongoose
   .connect(MONGO_URI)
   .then(() => {

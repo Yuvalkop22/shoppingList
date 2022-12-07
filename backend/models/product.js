@@ -18,6 +18,14 @@ const schema = mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required:true,
+    },
+    secondUrl: {
+      type: String,
+      required: true,
+    }
   },
   { timestamps: true }
 );
