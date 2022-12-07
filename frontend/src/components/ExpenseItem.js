@@ -23,7 +23,6 @@ function ExpenseItems(props) {
   }
   useEffect(()=>{
   },[props.selectedProduct])
-
   return (
     <div className="expense-item">
       <h4 className="expense-item__description">

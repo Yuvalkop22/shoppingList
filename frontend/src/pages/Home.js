@@ -55,8 +55,7 @@ const Home = () => {
                     bodyTextColor='black'
                     bodyHeight='100%'>
                   {
-                    selectedProduct && Object.values(selectedProduct).map(item=>
-                        
+                    selectedProduct && Object.values(selectedProduct).map(item=>  
                        <ExpenseSelectedItem
                         title= {Object.values(item)[0]}
                         amount= {Object.values(item)[1]}
