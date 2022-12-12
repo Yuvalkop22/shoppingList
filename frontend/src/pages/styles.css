@@ -1,0 +1,12 @@
+.btnOrder{
+    background-color: black;
+    color: white;
+}
+form{
+    margin-top: 10px;
+    border: 1px solid black;
+    padding: 10px;
+}
+.validationError{
+    color: brown;
+}
