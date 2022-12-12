@@ -5,7 +5,6 @@ import {useState,useEffect} from 'react'
 function ExpenseItems(props) {
   const [isOpen, setIsOpen] = useState(false);
   const increase = () => {
-    props.setCount(props.count+1);
     props.setSum(props.sum + props.price)
     const result = Object.values(props.selectedProduct);
     props.setSelectedProduct(prev=>{ return [...result,{
@@ -14,6 +13,7 @@ function ExpenseItems(props) {
       url: props.imagePath
     }]})
     props.setIsInCart(true);
+    props.setCount(props.selectedProduct.length+1);
   }
   const closeBox = () => {
         setIsOpen(false);
@@ -28,9 +28,9 @@ function ExpenseItems(props) {
       <h4 className="expense-item__description">
         {props.title}
         <br></br>
-        {props.amount}
+        {props.amount}$
       </h4>
-      <img src="https://cdn.icon-icons.com/icons2/1244/PNG/512/1492790881-6add_84227.png" alt=""
+      <img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" alt=""
        className="plus" onClick={increase} />
       <img src="https://cdn-icons-png.flaticon.com/512/32/32175.png" alt="" className="plus" onClick={openBox}/>
        {isOpen && (
@@ -41,7 +41,7 @@ function ExpenseItems(props) {
                     headerBackgroundColor='black'
                     headerTextColor='white'
                     headerHeight='65' 
-                    headerText = "more information about"
+                    headerText = {"Information about " + props.title}
                     closeButtonColor='white'
                     bodyBackgroundColor='white'
                     bodyTextColor='black'
