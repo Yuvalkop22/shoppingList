@@ -86,6 +86,8 @@ const Home = () => {
                         title= {Object.values(item)[0]}
                         amount= {Object.values(item)[1]}
                         imagePath={Object.values(item)[2]}
+                        description = {Object.values(item)[3]}
+                        secondUrl = {Object.values(item)[4]}
                         setSelectedProduct = {setSelectedProduct}
                         selectedProduct = {selectedProduct}     
                         count = {count}
@@ -131,6 +133,8 @@ const Home = () => {
               price = {product.amount}
               amount={product.amount}
               imagePath={product.imagePath}
+              description = {product.description}
+              secondUrl = {product.secondUrl}
             ></ExpenseItem>
           ))}
       </div>

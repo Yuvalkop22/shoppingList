@@ -10,7 +10,9 @@ function ExpenseItems(props) {
     props.setSelectedProduct(prev=>{ return [...result,{
       name: props.title,
       amount: props.amount,
-      url: props.imagePath
+      url: props.imagePath,
+      description: props.description,
+      secondUrl: props.secondUrl
     }]})
     props.setIsInCart(true);
     props.setCount(props.selectedProduct.length+1);
@@ -49,11 +51,9 @@ function ExpenseItems(props) {
                   {
                     <div className="expense-item">
                       <h4 className="expense-item__description">
-                        {props.title}
-                        <br></br>
-                        {props.amount}
+                        {props.description}
                       </h4>
-                      <img src={props.imagePath} alt={props.title} height={100} width={100} />
+                      <img src={props.secondUrl} alt={props.title} height={100} width={100} />
                     </div>
                   }
                 </ReactDialogBox>

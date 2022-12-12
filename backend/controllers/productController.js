@@ -26,9 +26,9 @@ const getProduct = async (req, res) => {
 
 //create a new product
 const createProduct = async (req, res) => {
-  const { title, amount, date, imagePath } = req.body;
+  const { title, amount, date, imagePath, description, secondUrl } = req.body;
   try {
-    const product = await Product.create({ title, amount, date, imagePath });
+    const product = await Product.create({ title, amount, date, imagePath, description, secondUrl });
     res.status(200).json(product);
   } catch (error) {
     res.status(400).json({ error: error.mssg });
