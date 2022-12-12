@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
+/* eslint-disable no-useless-escape */
 import ExpenseItem from "../components/ExpenseItem";
 import ExpenseSelectedItem from '../components/ExpenseSelectedItem';
-import { ReactDialogBox } from 'react-js-dialog-box'
-import 'react-js-dialog-box/dist/index.css'
+import { ReactDialogBox } from 'react-js-dialog-box';
+import 'react-js-dialog-box/dist/index.css';
 import { useEffect, useState } from "react";
+import "./styles.css";
 
 const Home = () => {
-  const navigation = useNavigate();
   const [products, setProducts] = useState(null);
   const [count, setCount] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState([]);
@@ -16,6 +16,7 @@ const Home = () => {
   const [title, setTitle] = useState("");
   const [name,setName] = useState("");
   const [email,setEmail] = useState("");
+  const [validationError,setValidationError] = useState("");
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch("/api/products");
@@ -48,20 +49,29 @@ const Home = () => {
 
 
   function handleSubmit(event){
-    event.preventDefault()
-    console.log("name = " + name + " email = " + email, "selected = " + selectedProduct);
-    const requestOptions = {
+    event.preventDefault();
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (selectedProduct.length === 0){
+      setValidationError("You must select products before ordering")
+    }else if (!name.includes(" ")){
+      setValidationError("Full-Name must contain space");
+    }else if(!email.match(validRegex)){
+      setValidationError("Email must contain @");
+    }else if (!name.includes(" ") && !email.includes("@")){
+      setValidationError("Full-Name must contain space and Email must contain @");
+    }else{
+      const requestOptions = {
         method: 'POST',
         crossDomain: true,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, email: email, selected: selectedProduct })
-    };
-    fetch('/api/reservations/sendRes', requestOptions)
-        .then(response => response.json())
-        .then(data => console.log(data));
-    navigation("/");
+      };
+      fetch('/api/reservations/sendRes', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log(data));
+      setValidationError("Thanks for your order")
+    }
   }
-
    
   return (
     <div className="home">
@@ -74,7 +84,7 @@ const Home = () => {
                     modalWidth='60%'
                     headerBackgroundColor='black'
                     headerTextColor='white'
-                    headerHeight='65'
+                    headerHeight='20'
                     headerText = {title}
                     closeButtonColor='white'
                     bodyBackgroundColor='white'
@@ -94,7 +104,8 @@ const Home = () => {
                         setCount = {setCount}
                         sum = {sum}
                         setSum = {setSum}
-                        index={index}     
+                        index={index}
+                        key={index}     
                       >
                       </ExpenseSelectedItem>
                     )
@@ -112,18 +123,20 @@ const Home = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
-                    <button>Click me</button>
+                      <button className="btnOrder">Order</button>
+                      <h4 className="validationError">{validationError}</h4>
                   </form>             
                 </ReactDialogBox>
             </>
         )} 
       <div className="products">
         {products &&
-          products.map((product) => (
+          products.map((product,index) => (
             <ExpenseItem
               selectedProduct = {selectedProduct}
               setSelectedProduct = {setSelectedProduct}
               count = {count}
+              key={index}
               isInCart={isInCart}
               setIsInCart = {setIsInCart}
               setCount = {setCount}
